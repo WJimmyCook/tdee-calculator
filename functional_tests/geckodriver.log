@@ -1,0 +1,14 @@
+1509405927814	geckodriver	INFO	geckodriver 0.19.0
+1509405927818	geckodriver	INFO	Listening on 127.0.0.1:46107
+1509405928947	mozrunner::runner	INFO	Running command: "/usr/bin/firefox" "-marionette" "-profile" "/tmp/rust_mozprofile.O3aQj3XVaZ7i"
+1509405929127	addons.xpi	WARN	Error parsing extensions state: [Exception... "Component returned failure code: 0x80520012 (NS_ERROR_FILE_NOT_FOUND) [amIAddonManagerStartup.readStartupData]"  nsresult: "0x80520012 (NS_ERROR_FILE_NOT_FOUND)"  location: "JS frame :: resource://gre/modules/addons/XPIProvider.jsm :: loadExtensionState :: line 1554"  data: no] Stack trace: loadExtensionState()@resource://gre/modules/addons/XPIProvider.jsm:1554 < getInstallState()@resource://gre/modules/addons/XPIProvider.jsm:1589 < checkForChanges()@resource://gre/modules/addons/XPIProvider.jsm:3109 < startup()@resource://gre/modules/addons/XPIProvider.jsm:2188 < callProvider()@resource://gre/modules/AddonManager.jsm:269 < _startProvider()@resource://gre/modules/AddonManager.jsm:739 < startup()@resource://gre/modules/AddonManager.jsm:906 < startup()@resource://gre/modules/AddonManager.jsm:3090 < observe()@jar:file:///usr/lib/firefox/omni.ja!/components/addonManager.js:65
+1509405929542	Marionette	INFO	Enabled via --marionette
+1509405930671	Marionette	INFO	Listening on port 41011
+1509405930828	Marionette	WARN	TLS certificate errors will be ignored for this session
+1509405930881	Marionette	DEBUG	Register listener.js for window 2147483649
+1509405930908	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1509405930919	Marionette	DEBUG	Received DOM event "beforeunload" for "about:blank"
+1509405930921	Marionette	DEBUG	Received DOM event "pagehide" for "about:blank"
+1509405930921	Marionette	DEBUG	Received DOM event "unload" for "about:blank"
+1509405930950	Marionette	DEBUG	Received DOM event "DOMContentLoaded" for "about:neterror?e=connectionFailure&u=http%3A//localhost%3A8000/&c=UTF-8&f=regular&d=Firefox%20can%E2%80%99t%20establish%20a%20connection%20to%20the%20server%20at%20localhost%3A8000."
+1509405931053	Marionette	INFO	New connections will no longer be accepted
