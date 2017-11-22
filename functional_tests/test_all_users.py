@@ -50,5 +50,5 @@ class HomeNewVisitorTest(StaticLiveServerTestCase):
         tz = self.browser.find_element_by_id("time-tz").text
         utc = self.browser.find_element_by_id("time-utc").text
         ny = self.browser.find_element_by_id("time-ny").text
-        self.assertNotEqual(tz, utc)
+        self.assertEqual(tz, utc)
         self.assertNotIn(ny, [tz, utc])
