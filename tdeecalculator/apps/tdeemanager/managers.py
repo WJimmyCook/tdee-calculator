@@ -3,3 +3,6 @@ from django.db import models
 
 class ProfileManager(models.Manager):
 	pass
+
+class EntryManager(models.Manager):
+	pass
