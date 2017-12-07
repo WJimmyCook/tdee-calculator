@@ -15,6 +15,7 @@ import os
 from django.core.exceptions import ImproperlyConfigured
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+PROJECT_ROOT = os.path.abspath(os.path.dirname(__name__))
 
 def get_env_variable(var_name):
     try:
@@ -45,6 +46,7 @@ INSTALLED_APPS = (
     'allauth.socialaccount.providers.google',
     'rest_framework',
     'tdeecalculator.apps.tdeemanager',
+    'webpack_loader',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -112,12 +114,12 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
-# STATIC_ROOT = '/home/jimmy/tdee_calculator_project/tdeecalculator/static'
+#STATIC_ROOT = '/Users/jimmy/personal_repos/tdee-calculator/tdeecalculator/static'
 
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, 'static'), 
 )
 
 SECRET_KEY = get_env_variable('SECRET_KEY')
@@ -141,3 +143,10 @@ LOGIN_REDIRECT_URL = "/"
 FIXTURE_DIRS = (
     os.path.join(BASE_DIR, 'fixtures'),
     )
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'BUNDLE_DIR_NAME': 'bundles/',
+        'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
+    }
+}
