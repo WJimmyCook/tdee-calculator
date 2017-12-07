@@ -19,7 +19,7 @@ class Migration(migrations.Migration):
                 ('starting_weight', models.FloatField(verbose_name='Starting weight')),
                 ('goal_weight', models.FloatField(verbose_name='Goal weight')),
                 ('weekly_weight_change', models.FloatField(verbose_name='Goal weight loss per week')),
-                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL, verbose_name='user', related_name='profile')),
+                ('user', models.OneToOneField(to=settings.AUTH_USER_MODEL, verbose_name='user', related_name='profile',on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name_plural': 'Profiles',

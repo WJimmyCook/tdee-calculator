@@ -13,7 +13,8 @@ class Profile(models.Model):
 	user = models.OneToOneField(
 		settings.AUTH_USER_MODEL,
 		related_name="profile",
-		verbose_name=_("user")
+		verbose_name=_("user"),
+		on_delete=models.DO_NOTHING
 		)
 	# Attributes - Mandatory
 	# Attributes - optional
@@ -38,7 +39,6 @@ class Profile(models.Model):
 		return self.user.username
 
 	# Methods
-
 	# Meta and String
 	class Meta:
 		verbose_name = _("Profile")
@@ -53,7 +53,8 @@ class Entry(models.Model):
 	user = models.ForeignKey(
 		Profile,
 		related_name="entries",
-		verbose_name=_("user")
+		verbose_name=_("user"),
+		on_delete=models.CASCADE
 		)
 	# Attributes - Mandatory
 	date = models.DateField(
