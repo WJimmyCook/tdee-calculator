@@ -36,7 +36,8 @@ html {
   text-align: center;
   font-weight: 900;
   float: left;
-  width: 100%;
+  width: calc(100% / 7 * 5);
+  margin: 0;
 }
 
 .goPreviousMonth,

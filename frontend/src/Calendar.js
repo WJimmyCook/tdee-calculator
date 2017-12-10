@@ -7,11 +7,11 @@ const moment = extendMoment(Moment);
 
 class Calendar extends React.Component {
   static defaultProps = {
-    date: moment()
+    startDate: moment()
   };
 
   static propTypes = {
-    date: React.PropTypes.object.isRequired
+    startDate: PropTypes.object.isRequired
   };
 
   constructor(props) {
@@ -23,27 +23,28 @@ class Calendar extends React.Component {
   days() {
     var days = []
 
-    moment.range(
-      moment(this.props.date).startOf('month').startOf('week'),
-      moment(this.props.date).endOf('month').endOf('week')
-    ).by('days', (day) => {
-      let belongsToAsideMonth = !day.isSame(moment(this.props.date), 'month')
+    const dayRange = moment.range(
+      moment(this.props.startDate).startOf('month').startOf('week'),
+      moment(this.props.startDate).endOf('month').endOf('week')
+    );
+    for(let day of dayRange.by('days')){
+      let belongsToAsideMonth = !day.isSame(moment(this.props.startDate), 'month')
 
       days.push(<li key={day.format('YYYYMMDD')} className={"day" + (belongsToAsideMonth ? ' pale' : '')}>{day.format('D')}</li>)
-    })
-
+    }
     return days;
   }
 
   dayHeaders() {
     var dayHeaders = []
 
-    moment.range(
-      moment(this.props.date).startOf('week'),
-      moment(this.props.date).endOf('week')
-    ).by('days', function(moment) {
-      dayHeaders.push(<li key={moment.format('YYYYMMDD')} className="dayHeader">{moment.format('dd')}</li>)
-    })
+    const headers = moment.range(
+      moment(this.props.startDate).startOf('week'),
+      moment(this.props.startDate).endOf('week')
+    );
+    for(let header of headers.by('days')){
+      dayHeaders.push(<li key={header.format('YYYYMMDD')} className="dayHeader">{header.format('dd')}</li>)
+    }
 
     return dayHeaders;
   }
@@ -54,7 +55,7 @@ class Calendar extends React.Component {
         <div className="goPreviousMonth">
           <i className="icono-caretLeftCircle" onClick={this.props.onMonthDecrement} />
         </div>
-        <p className="monthHeader"><input value={this.props.date} onChange={this.props.onDateChange} /> — {moment(this.props.date).format('MMMM YYYY')}</p>
+        <p className="monthHeader"><input value={this.props.startDate} onChange={this.props.onStartDateChange} /> — {moment(this.props.startDate).format('MMMM DD YYYY')}</p>
         <div className="goNextMonth">
           <i className="icono-caretRightCircle" onClick={this.props.onMonthIncrement} />
         </div>
@@ -66,33 +67,3 @@ class Calendar extends React.Component {
     );
   }
 }
-
-var store = Redux.createStore((state = {date: '1977-02-13'}, action) => {
-  switch (action.type) {
-    case 'INCREMENT_MONTH':
-      return {date: moment(state.date).add(1, 'months')}
-    case 'DECREMENT_MONTH':
-      return {date: moment(state.date).subtract(1, 'months')}
-    case 'CHANGE_DATE':
-      console.log('CHANGE_DATE', action)
-      return {date: action['date']}
-    default:
-      return state
-  }
-})
-
-function render() {
-  ReactDOM.render(
-    <Calendar
-      onMonthIncrement={() => store.dispatch({ type: 'INCREMENT_MONTH' })}
-      onMonthDecrement={() => store.dispatch({ type: 'DECREMENT_MONTH' })}
-      onDateChange={(e) => { store.dispatch({type: 'CHANGE_DATE', date: e.target.value}) }}
-      {...store.getState()}
-    />,
-    document.getElementById('application')
-  )
-}
-
-render()
-
-store.subscribe(render)
