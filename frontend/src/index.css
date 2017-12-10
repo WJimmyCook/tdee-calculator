@@ -1,0 +1,47 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: 'Raleway', sans-serif;
+}
+
+.calendar {
+  clear: both;
+}
+
+.days .dayHeader {
+  padding: 0.5em;
+  text-align: center;
+  float: left;
+  width: calc(100% / 7);
+  font-weight: 600;
+  list-style: none;
+}
+
+.days .day {
+  padding: 0.5em;
+  text-align: center;
+  float: left;
+  width: calc(100% / 7);
+  list-style: none;
+}
+
+.days .pale {
+  color: #aaa;
+}
+
+.monthHeader {
+  padding: 0.5em;
+  text-align: center;
+  font-weight: 900;
+  float: left;
+  width: 100%;
+}
+
+.goPreviousMonth,
+.goNextMonth {
+  text-align: center;
+  float: left;
+  width: calc(100% / 7);
+}
