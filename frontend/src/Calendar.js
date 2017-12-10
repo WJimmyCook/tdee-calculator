@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
-import Redux from 'redux';
 import PropTypes from 'prop-types';
+import Day from './Day';
 
 const moment = extendMoment(Moment);
 
@@ -30,8 +30,12 @@ export default class Calendar extends React.Component {
     );
     for(let day of dayRange.by('days')){
       let belongsToAsideMonth = !day.isSame(moment(this.props.startDate), 'month')
-
-      days.push(<li key={day.format('YYYYMMDD')} className={"day" + (belongsToAsideMonth ? ' pale' : '')}>{day.format('D')}</li>)
+      const element = <Day
+        date={day.format('YYYYMMDD')}
+        />
+      console.log("element", element)
+      // days.push(<li key={day.format('YYYYMMDD')} className={"day" + (belongsToAsideMonth ? ' pale' : '')}>{day.format('D')}</li>)
+      days.push(element)
     }
     return days;
   }
