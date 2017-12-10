@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import Moment from 'react-moment';
+import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 import Redux from 'redux';
+import PropTypes from 'prop-types';
 
 const moment = extendMoment(Moment);
 
-class Calendar extends React.Component {
+export default class Calendar extends React.Component {
   static defaultProps = {
     startDate: moment()
   };
