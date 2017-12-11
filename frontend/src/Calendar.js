@@ -3,6 +3,8 @@ import Moment from 'moment';
 import { extendMoment } from 'moment-range';
 import PropTypes from 'prop-types';
 import Day from './Day';
+import FontAwesomeIcon from '@fortawesome/react-fontawesome';
+import { faChevronCircleRight, faChevronCircleLeft, faEdit } from '@fortawesome/fontawesome-free-solid';
 
 const moment = extendMoment(Moment);
 
@@ -58,11 +60,11 @@ export default class Calendar extends React.Component {
     return (
       <div className="calendar">
         <div className="goPreviousMonth">
-          <i className="icono-caretLeftCircle" onClick={this.props.onMonthDecrement} />
+        <FontAwesomeIcon icon={faChevronCircleLeft} size="lg" onClick={this.props.onMonthDecrement} />
         </div>
         <p className="monthHeader"><input value={this.props.startDate} onChange={this.props.onStartDateChange} /> — {moment(this.props.startDate).format('MMMM DD YYYY')}</p>
         <div className="goNextMonth">
-          <i className="icono-caretRightCircle" onClick={this.props.onMonthIncrement} />
+        <FontAwesomeIcon icon={faChevronCircleRight} size="lg" onClick={this.props.onMonthIncrement} />
         </div>
         <ul className="days">
           {this.dayHeaders()}

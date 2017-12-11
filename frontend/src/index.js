@@ -2,7 +2,6 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createStore } from 'redux'
 import './index.css';
-import '../node_modules/icono/dist/icono.min.css'
 import registerServiceWorker from './registerServiceWorker';
 import Moment from 'moment';
 import { extendMoment } from 'moment-range';
