@@ -4,7 +4,7 @@ import { extendMoment } from 'moment-range';
 import PropTypes from 'prop-types';
 import Day from './Day';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faChevronCircleRight, faChevronCircleLeft, faEdit } from '@fortawesome/fontawesome-free-solid';
+import { faChevronCircleRight, faChevronCircleLeft } from '@fortawesome/fontawesome-free-solid';
 
 const moment = extendMoment(Moment);
 
