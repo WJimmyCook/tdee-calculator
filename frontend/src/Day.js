@@ -17,7 +17,7 @@ export default class Day extends React.Component {
   }
 
   static propTypes = {
-    date: PropTypes.object,
+    date: PropTypes.object.isRequired,
     weight: PropTypes.number,
     calories: PropTypes.number
   };

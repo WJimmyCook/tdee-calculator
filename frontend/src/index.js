@@ -1,27 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { createStore } from 'redux'
 import './index.css';
 import registerServiceWorker from './registerServiceWorker';
-import Moment from 'moment';
-import { extendMoment } from 'moment-range';
-import PropTypes from 'prop-types';
 import Calendar from './Calendar';
+import configureStore from './store';
 
-const moment = extendMoment(Moment);
-
-var store = createStore((state = moment().format("MM DD YYYY"), action) => {
-  switch (action.type) {
-    case 'INCREMENT_MONTH':
-      return {startDate: moment(state.startDate).add(1, 'months')}
-    case 'DECREMENT_MONTH':
-      return {startDate: moment(state.startDate).subtract(1, 'months')}
-    case 'CHANGE_START_DATE':
-      return {startDate: action['startDate']}
-    default:
-      return state
-  }
-})
+const store = configureStore()
 
 function render() {
   ReactDOM.render(

@@ -32,10 +32,7 @@ export default class Calendar extends React.Component {
     );
     for(let day of dayRange.by('days')){
       let belongsToAsideMonth = !day.isSame(moment(this.props.startDate), 'month')
-      const element = <Day
-        date={day.format('YYYYMMDD')}
-        />
-      console.log("element", element)
+      const element = <Day key={day.format('YYYYMMDD')} date={day} />
       // days.push(<li key={day.format('YYYYMMDD')} className={"day" + (belongsToAsideMonth ? ' pale' : '')}>{day.format('D')}</li>)
       days.push(element)
     }
@@ -54,6 +51,28 @@ export default class Calendar extends React.Component {
     }
 
     return dayHeaders;
+  }
+
+  componentDidMount(){
+    // fetch('http://localhost:8000/entries/', {
+    //   headers: {
+    //     'Authorization': 'token 75fbf8e95ae2b8ded6335d08a802c85f32d9337d',
+    //     'Access-Control-Allow-Origin': 'http://localhost:8000',
+    //   }
+    // })
+    // .then(results => {
+    //   return results.json();
+    // }).then(data => {
+    //   let entries = data.results.map((entry) => {
+    //     return(
+    //       <div key={entry.results}>
+    //       <p>{entry.date}{entry.weight}</p>
+    //       </div>
+    //     )
+    //   })
+    //   this.setState({entry: entries});
+    //   console.log("state", this.state.entries);
+    // })
   }
 
   render() {

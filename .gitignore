@@ -2,4 +2,5 @@ db.sqlite3
 __pycache__
 tdeecalculator.sublime-workspace.coverage
 htmlcov
-tdeecalculator/fixtures
+node_modules/
+venv/
