@@ -5,6 +5,9 @@ import PropTypes from 'prop-types';
 import Day from './Day';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faChevronCircleRight, faChevronCircleLeft } from '@fortawesome/fontawesome-free-solid';
+import { entries } from '../actions/entries'
+import { serverMessageEntries } from '../reducers'
+import { connect } from 'react-redux'
 
 const moment = extendMoment(Moment);
 
@@ -54,25 +57,7 @@ export default class Calendar extends React.Component {
   }
 
   componentDidMount(){
-    // fetch('http://localhost:8000/entries/', {
-    //   headers: {
-    //     'Authorization': 'token 75fbf8e95ae2b8ded6335d08a802c85f32d9337d',
-    //     'Access-Control-Allow-Origin': 'http://localhost:8000',
-    //   }
-    // })
-    // .then(results => {
-    //   return results.json();
-    // }).then(data => {
-    //   let entries = data.results.map((entry) => {
-    //     return(
-    //       <div key={entry.results}>
-    //       <p>{entry.date}{entry.weight}</p>
-    //       </div>
-    //     )
-    //   })
-    //   this.setState({entry: entries});
-    //   console.log("state", this.state.entries);
-    // })
+    this.props.fetchMessageEntries()
   }
 
   render() {
@@ -93,3 +78,8 @@ export default class Calendar extends React.Component {
     );
   }
 }
+
+connect(
+  state => ({ message: serverMessageEntries(state)}),
+  { fetchMessageEntries: entries }
+)(Calendar);

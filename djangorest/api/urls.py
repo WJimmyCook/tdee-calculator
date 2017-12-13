@@ -1,13 +1,32 @@
 from django.conf.urls import url, include
-from rest_framework.urlpatterns import format_suffix_patterns
-from .views import CreateView, DetailsView
-from rest_framework.authtoken.views import obtain_auth_token
+from django.views import generic
+from rest_framework import status, serializers, views
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from rest_framework.schemas import get_schema_view
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 
-urlpatterns = {
-	url(r'^auth/', include('rest_framework.urls', namespace='rest_framework')),
-    url(r'^entries/$', CreateView.as_view(), name="create"),
-    url(r'^entries/(?P<pk>[0-9]+)/$', DetailsView.as_view(), name="details"),
-    url(r'^get-token/', obtain_auth_token),
-}
 
-urlpatterns = format_suffix_patterns(urlpatterns)
+class MessageSerializer(serializers.Serializer):
+    message = serializers.CharField()
+
+
+class EchoView(views.APIView):
+    def post(self, request, *args, **kwargs):
+        serializer = MessageSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+urlpatterns = [
+    url(r'^$', generic.RedirectView.as_view(url='/api/', permanent=False)),
+
+    url(r'^$', get_schema_view()),
+    url(r'^auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^auth/token/obtain/$', TokenObtainPairView.as_view()),
+    url(r'^auth/token/refresh/$', TokenRefreshView.as_view()),
+    url(r'^echo/$', EchoView.as_view())
+]
