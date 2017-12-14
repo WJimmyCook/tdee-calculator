@@ -11,26 +11,6 @@ import { Route, Switch } from 'react-router';
 import Login from './containers/Login';
 import PrivateRoute from './containers/PrivateRoute';
 
-// const store = configureStore()
-//
-// function render() {
-//   ReactDOM.render(
-//     <Calendar
-//       onMonthIncrement={() => store.dispatch({ type: 'INCREMENT_MONTH' })}
-//       onMonthDecrement={() => store.dispatch({ type: 'DECREMENT_MONTH' })}
-//       onStartDateChange={(e) => { store.dispatch({type: 'CHANGE_START_DATE', startDate: e.target.value}) }}
-//       {...store.getState()}
-//     />,
-//     document.getElementById('root')
-//   )
-// }
-//
-// render()
-//
-// store.subscribe(render)
-//
-// registerServiceWorker();
-
 const history = createHistory()
 const store = configureStore(history)
 

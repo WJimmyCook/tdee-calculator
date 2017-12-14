@@ -1,27 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import Calendar from './components/Calendar';
-import { echo } from './actions/echo';
-import { serverMessage } from './reducers';
+import { entryAction } from './actions/entries';
+import { serverMessage, serverMessageEntries } from './reducers';
+import store from './store';
 
 
-class App extends Component {
+export default class App extends Component {
   componentDidMount() {
-    this.props.fetchMessage('Hi!')
   }
 
   render() {
     return (
       <div>
         <h2>Welcome to React</h2>
-        <p>{this.props.message}</p>
         <Calendar />
       </div>
     );
   }
 }
-
-export default connect(
-  state => ({ message: serverMessage(state) }),
-  { fetchMessage: echo }
-)(App);

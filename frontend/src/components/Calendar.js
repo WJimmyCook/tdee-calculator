@@ -1,19 +1,22 @@
-import React, { Component } from 'react';
+import React from 'react';
 import Moment from 'moment';
+import { bindActionCreators } from 'redux';
 import { extendMoment } from 'moment-range';
 import PropTypes from 'prop-types';
 import Day from './Day';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faChevronCircleRight, faChevronCircleLeft } from '@fortawesome/fontawesome-free-solid';
-import { entries } from '../actions/entries'
+import { entryAction } from '../actions/entries'
 import { serverMessageEntries } from '../reducers'
+import { startDateChange, incrementMonth, decrementMonth } from '../actions/calendar';
 import { connect } from 'react-redux'
 
 const moment = extendMoment(Moment);
 
-export default class Calendar extends React.Component {
+class Calendar extends React.Component {
   static defaultProps = {
-    startDate: moment()
+    startDate: moment(),
+    entries: {entries:[{}]}
   };
 
   static propTypes = {
@@ -24,6 +27,8 @@ export default class Calendar extends React.Component {
     super(props)
 
     this.days = this.days.bind(this)
+    this.onStartDateChange = this.onStartDateChange.bind(this)
+    // this.getEntries = this.getEntries.bind(this)
   }
 
   days() {
@@ -33,9 +38,22 @@ export default class Calendar extends React.Component {
       moment(this.props.startDate).startOf('month').startOf('week'),
       moment(this.props.startDate).endOf('month').endOf('week')
     );
+
+    // this.props.entries.entries.map((entry) => console.log("entry ", entry))
+
     for(let day of dayRange.by('days')){
+      const weight = null
+      const calories = null
+      if(this.props.entries.entries){
+        const newEntry = this.props.entries.entries.map(entry => {
+          if(entry['date'] === day.format("YYYY-MM-DD")){
+            weight = entry['weight']
+            calories = entry['calories']
+          }
+        })
+      }
       let belongsToAsideMonth = !day.isSame(moment(this.props.startDate), 'month')
-      const element = <Day key={day.format('YYYYMMDD')} date={day} />
+      const element = <Day key={day.format('YYYYMMDD')} date={day} weight={weight} calories={calories}/>
       // days.push(<li key={day.format('YYYYMMDD')} className={"day" + (belongsToAsideMonth ? ' pale' : '')}>{day.format('D')}</li>)
       days.push(element)
     }
@@ -57,16 +75,31 @@ export default class Calendar extends React.Component {
   }
 
   componentDidMount(){
-    this.props.fetchMessageEntries()
+    this.props.getEntries()
   }
 
+  onStartDateChange() {
+    console.log("onStartDateChange", "changed")
+    this.props.startDateChange()
+  }
+
+  onMonthDecrement() {
+    this.props.decrementMonth()
+  }
+
+  onMonthIncrement() {
+    this.props.incrementMonth()
+  }
+
+
   render() {
+    console.log("Calendar props", this.props)
     return (
       <div className="calendar">
         <div className="goPreviousMonth">
         <FontAwesomeIcon icon={faChevronCircleLeft} size="lg" onClick={this.props.onMonthDecrement} />
         </div>
-        <p className="monthHeader"><input value={this.props.startDate} onChange={this.props.onStartDateChange} /> — {moment(this.props.startDate).format('MMMM DD YYYY')}</p>
+        <p className="monthHeader"><input defaultValue={this.props.startDate} onChange={this.props.onStartDateChange} /> — {moment(this.props.startDate).format('MMMM DD YYYY')}</p>
         <div className="goNextMonth">
         <FontAwesomeIcon icon={faChevronCircleRight} size="lg" onClick={this.props.onMonthIncrement} />
         </div>
@@ -78,8 +111,24 @@ export default class Calendar extends React.Component {
     );
   }
 }
-
-connect(
-  state => ({ message: serverMessageEntries(state)}),
-  { fetchMessageEntries: entries }
-)(Calendar);
+// const mapStateToProps = (state) => {
+//   return { entries: state.entries }
+// }
+// const mapDispatchToProps = (dispatch) => {
+//   return bindActionCreators({ fetchEntries: entryAction }, dispatch)
+// }
+const mapStateToProps = (state) => {
+  return {
+    startDate: state.calendar.startDate,
+    entries: state.entries
+   }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onMonthDecrement: bindActionCreators(decrementMonth , dispatch),
+    onMonthIncrement: bindActionCreators(incrementMonth , dispatch),
+    onStartDateChange: bindActionCreators(startDateChange, dispatch),
+    getEntries: bindActionCreators(entryAction, dispatch)
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Calendar);
