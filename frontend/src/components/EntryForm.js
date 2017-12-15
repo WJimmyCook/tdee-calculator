@@ -1,12 +1,15 @@
 import React, {Component} from 'react'
 import { Alert, Button, Jumbotron,  Form } from 'reactstrap';
+import { postEntryAction } from '../actions/entries';
+import { connect } from 'react-redux';
 
 import TextInput from './TextInput'
 
-export default class LoginForm extends Component {
+export default class EntryForm extends Component {
   state = {
-    username: '',
-    password: ''
+    date: null,
+    weight: '',
+    calories: ''
   }
 
   handleInputChange = (event) => {
@@ -26,22 +29,20 @@ export default class LoginForm extends Component {
 
   onSubmit = (event) => {
     event.preventDefault()
-    this.props.onSubmit(this.state.username, this.state.password)
+    this.props.onSubmit(this.state.date, this.state.weight, this.state.calories)
   }
 
   render() {
     const errors = this.props.errors || {}
 
     return (
-      <Jumbotron className="container">
         <Form onSubmit={this.onSubmit}>
-          <h1>Authentication</h1>
+          <h1>Create Entry</h1>
           {errors.non_field_errors?<Alert color="danger">{errors.non_field_errors}</Alert>:""}
-          <TextInput name="username" label="Username" error={errors.username} getRef={input => this.primaryInput = input} onChange={this.handleInputChange}/>
-          <TextInput name="password" label="Password" error={errors.password} type="password" onChange={this.handleInputChange}/>
-          <Button type="submit" color="primary" size="lg">Log In</Button>
+          <TextInput name="weight" label="Weight" error={errors.weight} getRef={input => this.primaryInput = input} onChange={this.handleInputChange}/>
+          <TextInput name="calories" label="Calories" error={errors.calories} onChange={this.handleInputChange}/>
+          <Button type="submit" color="primary" size="lg">Submit</Button>
         </Form>
-      </Jumbotron>
     )
   }
 }

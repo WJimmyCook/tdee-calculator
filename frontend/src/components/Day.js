@@ -1,14 +1,14 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Moment from 'moment';
-import { extendMoment } from 'moment-range';
-import { weightChange } from '../actions/entry';
-import { bindActionCreators } from 'redux';
-import { connect } from 'react-redux';
+import React from 'react'
+import PropTypes from 'prop-types'
+import Moment from 'moment'
+import { extendMoment } from 'moment-range'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { Button } from 'reactstrap'
 
 const moment = extendMoment(Moment);
 
-class Day extends React.Component {
+export default class Day extends React.Component {
   static defaultProps = {
     weight: "",
     calories: ""
@@ -44,6 +44,7 @@ class Day extends React.Component {
         <div className="date">
           <div>{moment(this.props.date).format('D')}</div>
         </div>
+        <Button key={this.props.date.format('YYYYMMDD')} onClick={() => this.onDayButtonClick(this.props.date.format('YYYY-MM-DD'))}>{this.props.date.format("D")}</Button>
         <div className="weight">
           <input value={this.props.weight} onChange={this.props.onWeightChange}/>
         </div>
@@ -55,14 +56,14 @@ class Day extends React.Component {
   }
 }
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    entry: state.entry[ownProps.date]
-  }
-}
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onWeightChange: bindActionCreators(weightChange, dispatch)
-  }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Day)
+// const mapStateToProps = (state, ownProps) => {
+//   return {
+//     entry: state.entry[ownProps.date]
+//   }
+// }
+// const mapDispatchToProps = (dispatch) => {
+//   return {
+//     onWeightChange: bindActionCreators(weightChange, dispatch)
+//   }
+// }
+// export default connect(mapStateToProps, mapDispatchToProps)(Day)

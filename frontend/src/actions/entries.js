@@ -24,7 +24,11 @@ export const postEntryAction = (date, weight, calories) => ({
   [RSAA]: {
     endpoint: '/entries/',
     method: 'POST',
-    body: {date: date, weight: weight, calories: calories},
+    body: JSON.stringify({
+      date: date,
+      weight: weight,
+      calories: calories
+    }),
     headers: withAuth({'Content-Type': 'application/json'}),
     types: [
       ENTRIES_REQUEST, ENTRIES_SUCCESS, ENTRIES_FAILURE
