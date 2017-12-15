@@ -27,7 +27,7 @@ class Calendar extends React.Component {
     super(props)
 
     this.days = this.days.bind(this)
-    this.onStartDateChange = this.onStartDateChange.bind(this)
+    // this.onStartDateChange = this.onStartDateChange.bind(this)
     // this.getEntries = this.getEntries.bind(this)
   }
 
@@ -53,7 +53,7 @@ class Calendar extends React.Component {
         })
       }
       let belongsToAsideMonth = !day.isSame(moment(this.props.startDate), 'month')
-      const element = <Day key={day.format('YYYYMMDD')} date={day} weight={weight} calories={calories}/>
+      const element = <Day key={day.format('YYYYMMDD')} date={day.format("YYYY-MM-DD")} weight={weight} calories={calories}/>
       // days.push(<li key={day.format('YYYYMMDD')} className={"day" + (belongsToAsideMonth ? ' pale' : '')}>{day.format('D')}</li>)
       days.push(element)
     }
@@ -79,7 +79,6 @@ class Calendar extends React.Component {
   }
 
   onStartDateChange() {
-    console.log("onStartDateChange", "changed")
     this.props.startDateChange()
   }
 
@@ -99,7 +98,7 @@ class Calendar extends React.Component {
         <div className="goPreviousMonth">
         <FontAwesomeIcon icon={faChevronCircleLeft} size="lg" onClick={this.props.onMonthDecrement} />
         </div>
-        <p className="monthHeader"><input defaultValue={this.props.startDate} onChange={this.props.onStartDateChange} /> — {moment(this.props.startDate).format('MMMM DD YYYY')}</p>
+        <p className="monthHeader"><input value={this.props.startDate} onChange={this.props.onStartDateChange} /> — {moment(this.props.startDate).format('MMMM DD YYYY')}</p>
         <div className="goNextMonth">
         <FontAwesomeIcon icon={faChevronCircleRight} size="lg" onClick={this.props.onMonthIncrement} />
         </div>

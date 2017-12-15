@@ -15,9 +15,16 @@ export default (state=initialState, action) => {
       return {
         entries: action.payload
       }
+      break;
+    case entries.ENTRY_POST_SUCCESS:
+      return {
+        entries: action.payload
+      }
+      break;
     default:
       return state
   }
+
 }
 
 export const serverMessageEntries = (state) => state.entries
