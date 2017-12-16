@@ -6,7 +6,7 @@ import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert, Jumbotron, Form } from 'reactstrap';
 import TextInput from './TextInput'
-import { postEntryAction, updateWeight } from '../actions/entries'
+import { postEntryAction, updateEntryAction } from '../actions/entries'
 
 
 const moment = extendMoment(Moment);
@@ -41,19 +41,21 @@ class Day extends React.Component {
   }
 
   handleInputChange = (event) => {
-    const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
     this.setState({
-      [name]: value
+      [event.target.name]: event.target.value
     });
   }
 
   onPostEntry() {
     console.log("day props", this.props)
+    console.log("day state", this.state)
     if(this.props.id != null){
-      // edit here
+      console.log("PUT ran for id: " + this.props.id )
+      console.log("props calories", this.props.calories)
+      const weight = this.state.weight == null ? this.props.weight : this.state.weight
+      const calories = this.state.calories == null ? this.props.calories : this.state.calories
+      console.log("weight + calories", weight + calories)
+      this.props.updateEntry(this.props.id, this.props.date, weight, calories)
     } else {
       this.props.postEntry(this.props.date, this.state.weight, this.state.calories)
     }
@@ -78,8 +80,20 @@ class Day extends React.Component {
           <Form onSubmit={this.onSubmit}>
             <h1>Create Entry</h1>
             {errors.non_field_errors?<Alert color="danger">{errors.non_field_errors}</Alert>:""}
-            <TextInput name="weight" label="Weight" error={errors.weight} value={this.props.weight} getRef={input => this.primaryInput = input} onChange={this.handleInputChange}/>
-            <TextInput name="calories" label="Calories" error={errors.calories} value={this.props.calories} onChange={this.handleInputChange}/>
+            <TextInput
+              name="weight"
+              label="Weight"
+              error={errors.weight}
+              defaultValue={this.props.weight}
+              value={this.state.weight}
+              onChange={this.handleInputChange}/>
+            <TextInput
+              name="calories"
+              label="Calories"
+              error={errors.calories}
+              defaultValue={this.props.calories}
+              value={this.state.calories}
+              onChange={this.handleInputChange}/>
             <TextInput name="id" defaultValue={this.props.id} hidden/>
           </Form>
           </ModalBody>
@@ -101,7 +115,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     postEntry: bindActionCreators(postEntryAction, dispatch),
-    updateWeight: bindActionCreators(updateWeight, dispatch)
+    updateEntry: bindActionCreators(updateEntryAction, dispatch)
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Day);

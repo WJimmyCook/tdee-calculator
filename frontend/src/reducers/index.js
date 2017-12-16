@@ -21,9 +21,13 @@ export const authErrors = state => fromAuth.errors(state.auth)
 export const serverMessageEntries = state => fromEntries.serverMessageEntries(state.entries)
 export const calendarState = state => fromCalendar.calendarState(state.calendar)
 
+// export const getEntry = (state, date) => fromEntries.getEntry(state.entries, date)
+
 export function withAuth(headers={}) {
   return (state) => ({
     ...headers,
     'Authorization': `Bearer ${accessToken(state)}`
   })
 }
+
+// export const getEntryByDate = state => getEntry(state, date)

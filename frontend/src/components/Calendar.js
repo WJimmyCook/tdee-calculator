@@ -7,7 +7,7 @@ import PropTypes from 'prop-types';
 import Day from './Day';
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faChevronCircleRight, faChevronCircleLeft } from '@fortawesome/fontawesome-free-solid';
-import { entryAction, postEntryAction } from '../actions/entries'
+import { entryAction, postEntryAction, updateEntryAction } from '../actions/entries'
 import { serverMessageEntries } from '../reducers'
 import { startDateChange, incrementMonth, decrementMonth } from '../actions/calendar';
 import { connect } from 'react-redux'
@@ -154,8 +154,7 @@ const mapDispatchToProps = (dispatch) => {
     onMonthDecrement: bindActionCreators(decrementMonth , dispatch),
     onMonthIncrement: bindActionCreators(incrementMonth , dispatch),
     onStartDateChange: bindActionCreators(startDateChange, dispatch),
-    getEntries: bindActionCreators(entryAction, dispatch),
-    postEntry: bindActionCreators(postEntryAction, dispatch)
+    getEntries: bindActionCreators(entryAction, dispatch)
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Calendar);

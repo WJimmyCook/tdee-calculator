@@ -14,23 +14,14 @@ export default (state=initialState, action) => {
   switch (action.type) {
 
     case entries.ENTRIES_SUCCESS:
-      console.log("API success", action)
       return action.payload
       break;
     case entries.ENTRY_POST_SUCCESS:
       return [...state, action.payload ]
       break;
-    case entries.ENTRY_UPDATE_WEIGHT:
-      console.log("update weight: ", action)
-      return {
-        ...state, weight: action['weight']
-      }
-      break;
-    case entries.ENTRY_UPDATE_CALORIES:
-      return {
-        calories: action['calories']
-      }
-      break;
+    case entries.ENTRY_UPDATE_SUCCESS:
+        return [...state, action.payload ]
+        break;
     default:
       return state
   }
@@ -38,3 +29,27 @@ export default (state=initialState, action) => {
 }
 
 export const serverMessageEntries = (state) => state.entries
+
+// const byDate = (state = {}, action) => {
+//   switch (action.type) {
+//     case 'RECEIVE_ENTRY':
+//       return {
+//         ...state,
+//         ...action.entries.reduce((obj, entry) => {
+//           obj[entry.date] = entry
+//           return obj
+//         }, {})
+//       }
+//     default:
+//       const { entryDate } = action
+//       if(entryDate){
+//         return {
+//           ...state,
+//           [entryDate]: entry
+//         }
+//       }
+//   }
+// }
+//
+// export const getEntry = (state, date) =>
+//   state.byDate(date)

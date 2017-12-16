@@ -18,9 +18,9 @@ const mapStateToProps = (state) => ({
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  onSubmit: (date, weight, calories) => {
-    dispatch(postEntryAction(date, weight, calories))
-  }
+  // onSubmit: (date, weight, calories) => {
+  //   dispatch(postEntryAction(date, weight, calories))
+  // }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(PostEntry);
