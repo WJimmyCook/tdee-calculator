@@ -35,33 +35,11 @@ class Calendar extends React.Component {
       selectedDay: moment()
     };
 
-    this.days = this.days.bind(this)
-    this.onDayButtonClick = this.onDayButtonClick.bind(this)
-    this.onPostEntry = this.onPostEntry.bind(this)
+    // this.days = this.days.bind(this)
+    // this.onDayButtonClick = this.onDayButtonClick.bind(this)
+    // this.onPostEntry = this.onPostEntry.bind(this)
   }
 
-  onDayButtonClick(day) {
-    this.setState({
-      modal: !this.state.modal,
-      selectedDay: day
-    })
-  }
-
-  handleInputChange = (event) => {
-    const target = event.target;
-    const value = target.type ===
-        'checkbox' ? target.checked : target.value;
-    const name = target.name;
-
-    this.setState({
-      [name]: value
-    });
-  }
-
-  onSubmit = (event) => {
-    event.preventDefault()
-    this.props.onSubmit(this.state.date, this.state.weight, this.state.calories)
-  }
 
   days() {
     var days = []
@@ -76,18 +54,19 @@ class Calendar extends React.Component {
     for(let day of dayRange.by('days')){
       const weight = null
       const calories = null
-      if(this.props.entries.entries){
-        const newEntry = this.props.entries.entries.map(entry => {
+      const id = null
+      if(this.props.entries.length > 0){
+        const newEntry = this.props.entries.map(entry => {
           if(entry['date'] === day.format("YYYY-MM-DD")){
             weight = entry['weight']
             calories = entry['calories']
-            // id = entry['id']
+            id = entry['id']
           }
         })
       }
       let belongsToAsideMonth = !day.isSame(moment(this.props.startDate), 'month')
       // const element = <Day key={day.format('YYYYMMDD')} date={day.format("YYYY-MM-DD")} weight={weight} calories={calories}/>
-      const element = <li key={day.format('YYYY-MM-DD')} className={"day" + ( belongsToAsideMonth ? ' .pale' : '')}><Button key={day.format('YYYYMMDD')} onClick={() => this.onDayButtonClick(day.format('YYYY-MM-DD'))}>{day.format("D")}</Button></li>
+      const element = <Day date={day.format("YYYY-MM-DD")} weight={weight} calories={calories} id={id} key={day.format('YYYY-MM-DD')} className={"day" + ( belongsToAsideMonth ? ' .pale' : '')} />
       days.push(element)
     }
     return days;
@@ -123,17 +102,6 @@ class Calendar extends React.Component {
   onMonthIncrement() {
     this.props.incrementMonth()
   }
-
-  onPostEntry() {
-    console.log("props", this.props)
-    console.log("state", this.state)
-    console.log("event", this.event)
-    this.props.postEntry(this.state.selectedDay, this.state.weight, this.state.calories)
-    this.setState({
-      modal: !this.state.modal
-    })
-  }
-
 
   render() {
     const errors = this.props.errors || {}

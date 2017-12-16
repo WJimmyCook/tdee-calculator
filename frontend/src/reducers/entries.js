@@ -9,16 +9,26 @@ const initialState = {
 }
 
 export default (state=initialState, action) => {
+  console.log("log action===", action)
+  console.log("state----", state)
   switch (action.type) {
+
     case entries.ENTRIES_SUCCESS:
       console.log("API success", action)
-      return {
-        entries: action.payload
-      }
+      return action.payload
       break;
     case entries.ENTRY_POST_SUCCESS:
+      return [...state, action.payload ]
+      break;
+    case entries.ENTRY_UPDATE_WEIGHT:
+      console.log("update weight: ", action)
       return {
-        entries: action.payload
+        ...state, weight: action['weight']
+      }
+      break;
+    case entries.ENTRY_UPDATE_CALORIES:
+      return {
+        calories: action['calories']
       }
       break;
     default:

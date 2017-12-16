@@ -4,11 +4,14 @@ import Moment from 'moment'
 import { extendMoment } from 'moment-range'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Button } from 'reactstrap'
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert, Jumbotron, Form } from 'reactstrap';
+import TextInput from './TextInput'
+import { postEntryAction, updateWeight } from '../actions/entries'
+
 
 const moment = extendMoment(Moment);
 
-export default class Day extends React.Component {
+class Day extends React.Component {
   static defaultProps = {
     weight: "",
     calories: ""
@@ -16,8 +19,13 @@ export default class Day extends React.Component {
 
   constructor(props){
     super(props);
+    this.state = {
+      modal: false
+    }
 
-    // this.handleChange = this.handleChange.bind(this);
+    this.onDayButtonClick = this.onDayButtonClick.bind(this)
+    this.onPostEntry = this.onPostEntry.bind(this)
+
   }
 
   static propTypes = {
@@ -26,44 +34,74 @@ export default class Day extends React.Component {
     calories: PropTypes.number
   };
 
-  onWeightChange(){
-    console.log("Day changed")
-    this.props.weightChange()
+  onDayButtonClick() {
+    this.setState({
+      modal: !this.state.modal
+    })
+  }
 
-    console.log("weight", this.props.weight)
-    console.log("calories", this.props.calories)
+  handleInputChange = (event) => {
+    const target = event.target;
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const name = target.name;
 
-    // if(this.props.weight != null && this.props.calories != null){
-    //   this.props.postEntryAction(this.props.date, this.props.weight, this.props.calories)
-    // }
+    this.setState({
+      [name]: value
+    });
+  }
+
+  onPostEntry() {
+    console.log("day props", this.props)
+    if(this.props.id != null){
+      // edit here
+    } else {
+      this.props.postEntry(this.props.date, this.state.weight, this.state.calories)
+    }
+
+    this.setState({
+      modal: !this.state.modal
+    })
   }
 
   render(){
+    const date = moment(this.props.date)
+    const errors = this.props.errors || {}
     return (
       <div className="day">
-        <div className="date">
-          <div>{moment(this.props.date).format('D')}</div>
-        </div>
-        <Button key={this.props.date.format('YYYYMMDD')} onClick={() => this.onDayButtonClick(this.props.date.format('YYYY-MM-DD'))}>{this.props.date.format("D")}</Button>
-        <div className="weight">
-          <input value={this.props.weight} onChange={this.props.onWeightChange}/>
-        </div>
-        <div className="calories">
-          <input value={this.props.calories} onChange={this.props.handleChange}/>
-        </div>
+        <Button key={date.format('YYYYMMDD')} onClick={this.onDayButtonClick}>
+          {date.format("D")}
+          <p>{this.props.weight} {this.props.weight? '-' : ''} {this.props.calories}</p>
+        </Button>
+        <Modal isOpen={this.state.modal} toggle={this.onDayButtonClick} className={this.props.className}>
+          <ModalHeader toggle={this.toggle}>{this.state.selectedDay}</ModalHeader>
+          <ModalBody>
+          <Form onSubmit={this.onSubmit}>
+            <h1>Create Entry</h1>
+            {errors.non_field_errors?<Alert color="danger">{errors.non_field_errors}</Alert>:""}
+            <TextInput name="weight" label="Weight" error={errors.weight} value={this.props.weight} getRef={input => this.primaryInput = input} onChange={this.handleInputChange}/>
+            <TextInput name="calories" label="Calories" error={errors.calories} value={this.props.calories} onChange={this.handleInputChange}/>
+            <TextInput name="id" defaultValue={this.props.id} hidden/>
+          </Form>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="primary" onClick={this.onPostEntry}>Save</Button>{' '}
+            <Button color="secondary" onClick={this.onDayButtonClick}>Cancel</Button>
+          </ModalFooter>
+        </Modal>
       </div>
     );
   }
 }
 
-// const mapStateToProps = (state, ownProps) => {
-//   return {
-//     entry: state.entry[ownProps.date]
-//   }
-// }
-// const mapDispatchToProps = (dispatch) => {
-//   return {
-//     onWeightChange: bindActionCreators(weightChange, dispatch)
-//   }
-// }
-// export default connect(mapStateToProps, mapDispatchToProps)(Day)
+const mapStateToProps = (state) => {
+  return {
+    entries: state.entries
+   }
+}
+const mapDispatchToProps = (dispatch) => {
+  return {
+    postEntry: bindActionCreators(postEntryAction, dispatch),
+    updateWeight: bindActionCreators(updateWeight, dispatch)
+  }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Day);
