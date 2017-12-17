@@ -9,8 +9,6 @@ const initialState = {
 }
 
 export default (state=initialState, action) => {
-  console.log("log action===", action)
-  console.log("state----", state)
   switch (action.type) {
 
     case entries.ENTRIES_SUCCESS:

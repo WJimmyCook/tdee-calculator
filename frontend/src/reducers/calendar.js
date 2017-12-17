@@ -8,19 +8,6 @@ const initialState = {
     startDate: moment().format('MM-DD-YYYY')
 }
 
-// export default (state=initialState, action) => {
-//   switch (action.type) {
-//     case entries.ENTRIES_SUCCESS:
-//       return {
-//         entries: action.payload
-//       }
-//     default:
-//       return state
-//   }
-// }
-//
-// export const serverMessageEntries = (state) => state
-
 export default (state = initialState, action) => {
   switch (action.type) {
     case 'INCREMENT_MONTH':

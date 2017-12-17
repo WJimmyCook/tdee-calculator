@@ -47,14 +47,9 @@ class Day extends React.Component {
   }
 
   onPostEntry() {
-    console.log("day props", this.props)
-    console.log("day state", this.state)
     if(this.props.id != null){
-      console.log("PUT ran for id: " + this.props.id )
-      console.log("props calories", this.props.calories)
       const weight = this.state.weight == null ? this.props.weight : this.state.weight
       const calories = this.state.calories == null ? this.props.calories : this.state.calories
-      console.log("weight + calories", weight + calories)
       this.props.updateEntry(this.props.id, this.props.date, weight, calories)
     } else {
       this.props.postEntry(this.props.date, this.state.weight, this.state.calories)

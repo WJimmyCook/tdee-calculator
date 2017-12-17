@@ -3,11 +3,13 @@ import { routerReducer } from 'react-router-redux'
 import auth, * as fromAuth from './auth.js'
 import entries, * as fromEntries from './entries.js'
 import calendar, * as fromCalendar from './calendar.js'
+import bodyStats, * as fromBodyStats from './bodyStats.js'
 
 export default combineReducers({
   auth: auth,
   entries: entries,
   calendar: calendar,
+  bodyStats: bodyStats,
   router: routerReducer
 })
 
@@ -18,10 +20,18 @@ export const isAccessTokenExpired = state => fromAuth.isAccessTokenExpired(state
 export const refreshToken = state => fromAuth.refreshToken(state.auth)
 export const isRefreshTokenExpired = state => fromAuth.isRefreshTokenExpired(state.auth)
 export const authErrors = state => fromAuth.errors(state.auth)
+
+//TODO: change serverMessageEntries to something better
 export const serverMessageEntries = state => fromEntries.serverMessageEntries(state.entries)
 export const calendarState = state => fromCalendar.calendarState(state.calendar)
 
-// export const getEntry = (state, date) => fromEntries.getEntry(state.entries, date)
+export const targetDailyCalorieChange = state => fromBodyStats.targetDailyCalorieChange(state)
+export const currentWeight = state => fromBodyStats.currentWeight(state)
+export const weightChange = state => fromBodyStats.weightChange(state)
+export const currentTDEE = state => fromBodyStats.currentTDEE(state)
+export const goalWeightDate = state => fromBodyStats.goalWeightDate(state)
+export const timeUntilGoal = state => fromBodyStats.timeUntilGoal(state)
+export const caloricNeed = state => fromBodyStats.caloricNeed(state)
 
 export function withAuth(headers={}) {
   return (state) => ({
