@@ -38,7 +38,7 @@ export default (state=initialState, action) => {
 export function targetDailyCalorieChange(state){
   console.log("state body", state)
   if(state.bodyStats.goalWeightChangePerWeek){
-    return state.bodyStats.goalWeightChangePerWeek * 3500 / 7
+    return parseFloat((state.bodyStats.goalWeightChangePerWeek * 3500 / 7).toFixed(2))
   }
 }
 
@@ -47,16 +47,16 @@ export function currentWeight(state){
     const entryDates = state.entries.map((entry, index) => {
       return moment(entry.date)
     })
-    return state.entries.filter((entry) => {
+    return parseFloat(state.entries.filter((entry) => {
       return entry.date == moment.max(entryDates).format("YYYY-MM-DD")
-    })[0].weight
+    })[0].weight.toFixed(2))
   }
 }
 
 export function weightChange(state){
   console.log("weight chagne", state)
   if(state.bodyStats.startingWeight && currentWeight(state)){
-    return Math.abs(state.bodyStats.startingWeight - currentWeight(state))
+    return parseFloat(Math.abs(state.bodyStats.startingWeight - currentWeight(state)).toFixed(2))
   }
 }
 
@@ -76,12 +76,13 @@ export function currentTDEE(state){
     const currentTDEEValue = avgCalories + (-delta * 3500)/entryCount
     console.log("currentTDEE", currentTDEEValue)
 
-    return currentTDEEValue
+    return parseFloat(currentTDEEValue.toFixed(2))
   }
 }
 
 export function timeUntilGoal(state){
-  return Math.abs(state.bodyStats.goalWeight - currentWeight(state)) / state.bodyStats.goalWeightChangePerWeek
+  return parseFloat((Math.abs(state.bodyStats.goalWeight -
+    currentWeight(state)) / state.bodyStats.goalWeightChangePerWeek).toFixed(2))
 }
 
 export function goalWeightDate(state){
@@ -92,8 +93,8 @@ export function caloricNeed(state){
   console.log("current tdeee", currentTDEE(state))
   console.log("daily change", targetDailyCalorieChange(state))
   if(state.bodyStats.goalWeight > currentWeight(state)){
-    return currentTDEE(state) + targetDailyCalorieChange(state)
+    return parseFloat((currentTDEE(state) + targetDailyCalorieChange(state)).toFixed(2))
   } else {
-    return currentTDEE(state) - targetDailyCalorieChange(state)
+    return parseFloat((currentTDEE(state) - targetDailyCalorieChange(state)).toFixed(2))
   }
 }

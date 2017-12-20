@@ -10,6 +10,7 @@ import App from './App';
 import { Route, Switch } from 'react-router';
 import Login from './containers/Login';
 import PrivateRoute from './containers/PrivateRoute';
+import 'bootstrap/dist/css/bootstrap.css'
 
 const history = createHistory()
 const store = configureStore(history)

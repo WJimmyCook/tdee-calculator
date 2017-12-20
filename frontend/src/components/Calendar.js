@@ -1,6 +1,6 @@
 import React from 'react';
 import Moment from 'moment';
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert, Jumbotron,  Form } from 'reactstrap';
+import { Container, Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert, Jumbotron, Row, Col, Form } from 'reactstrap';
 import { bindActionCreators } from 'redux';
 import { extendMoment } from 'moment-range';
 import PropTypes from 'prop-types';
@@ -50,8 +50,9 @@ class Calendar extends React.Component {
     );
 
     // this.props.entries.entries.map((entry) => console.log("entry ", entry))
-
+    let index = 0
     for(let day of dayRange.by('days')){
+      index++
       const weight = null
       const calories = null
       const id = null
@@ -65,7 +66,6 @@ class Calendar extends React.Component {
         })
       }
       let belongsToAsideMonth = !day.isSame(moment(this.props.startDate), 'month')
-      // const element = <Day key={day.format('YYYYMMDD')} date={day.format("YYYY-MM-DD")} weight={weight} calories={calories}/>
       const element = <Day date={day.format("YYYY-MM-DD")} weight={weight} calories={calories} id={id} key={day.format('YYYY-MM-DD')} className={"day" + ( belongsToAsideMonth ? ' .pale' : '')} />
       days.push(element)
     }
@@ -80,7 +80,7 @@ class Calendar extends React.Component {
       moment(this.props.startDate).endOf('week')
     );
     for(let header of headers.by('days')){
-      dayHeaders.push(<li key={header.format('YYYYMMDD')} className="dayHeader">{header.format('dd')}</li>)
+      dayHeaders.push(<li key={header.format('YYYYMMDD')} className="dayHeader">{header.format('ddd')}</li>)
     }
 
     return dayHeaders;
@@ -107,23 +107,24 @@ class Calendar extends React.Component {
     const errors = this.props.errors || {}
     console.log("Calendar props", this.props)
     return (
-      <div className="calendar">
-        <div className="goPreviousMonth">
-        <FontAwesomeIcon icon={faChevronCircleLeft} size="lg" onClick={this.props.onMonthDecrement} />
-        </div>
-        <p className="monthHeader">
-        <input value={this.props.startDate} onChange={this.props.onStartDateChange} />
-        {moment(this.props.startDate).format('MMMM YYYY')}</p>
-        <div className="goNextMonth">
-        <FontAwesomeIcon icon={faChevronCircleRight} size="lg" onClick={this.props.onMonthIncrement} />
-        </div>
-
-        <ul className="days">
+      <Container className="calendar">
+        <Row>
+          <div className="goPreviousMonth">
+          <FontAwesomeIcon icon={faChevronCircleLeft} size="lg" onClick={this.props.onMonthDecrement} />
+          </div>
+          <p className="monthHeader">
+          {moment(this.props.startDate).format('MMMM YYYY')}</p>
+          <div className="goNextMonth">
+          <FontAwesomeIcon icon={faChevronCircleRight} size="lg" onClick={this.props.onMonthIncrement} />
+          </div>
+        </Row>
+        <div className="days">
           {this.dayHeaders()}
           {this.days()}
-        </ul>
+        </div>
         <Modal isOpen={this.state.modal} toggle={this.onDayButtonClick} className={this.props.className}>
-          <ModalHeader toggle={this.toggle}>{this.state.selectedDay}</ModalHeader>
+          <ModalHeader toggle={this.toggle}>{this.state.selectedDay}
+          </ModalHeader>
           <ModalBody>
           <Form onSubmit={this.onSubmit}>
             <h1>Create Entry</h1>
@@ -138,7 +139,7 @@ class Calendar extends React.Component {
             <Button color="secondary" onClick={this.onDayButtonClick}>Cancel</Button>
           </ModalFooter>
         </Modal>
-      </div>
+      </Container>
     );
   }
 }

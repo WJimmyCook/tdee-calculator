@@ -4,7 +4,7 @@ import Moment from 'moment'
 import { extendMoment } from 'moment-range'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert, Jumbotron, Form } from 'reactstrap';
+import { Col, Button, Modal, ModalHeader, ModalBody, ModalFooter, Alert, Jumbotron, Form } from 'reactstrap';
 import TextInput from './TextInput'
 import { postEntryAction, updateEntryAction } from '../actions/entries'
 
@@ -64,10 +64,11 @@ class Day extends React.Component {
     const date = moment(this.props.date)
     const errors = this.props.errors || {}
     return (
-      <div className="day">
-        <Button key={date.format('YYYYMMDD')} onClick={this.onDayButtonClick}>
-          {date.format("D")}
-          <p>{this.props.weight} {this.props.weight? '-' : ''} {this.props.calories}</p>
+      <Col className="day">
+        <Button outline key={date.format('YYYYMMDD')} onClick={this.onDayButtonClick} block>
+          <div>{date.format("D")}</div>
+          <div>{this.props.weight}</div>
+          <div>{this.props.calories}</div>
         </Button>
         <Modal isOpen={this.state.modal} toggle={this.onDayButtonClick} className={this.props.className}>
           <ModalHeader toggle={this.toggle}>{this.state.selectedDay}</ModalHeader>
@@ -97,7 +98,7 @@ class Day extends React.Component {
             <Button color="secondary" onClick={this.onDayButtonClick}>Cancel</Button>
           </ModalFooter>
         </Modal>
-      </div>
+      </Col>
     );
   }
 }

@@ -20,7 +20,7 @@ html {
 }
 
 .days .day {
-  padding: 0.5em;
+  padding: 0.1em;
   text-align: center;
   float: left;
   width: calc(100% / 7);
@@ -45,4 +45,25 @@ html {
   text-align: center;
   float: left;
   width: calc(100% / 7);
+}
+
+.target-daily-calorie-change,
+.current-weight,
+.weight-change,
+.current-tdee,
+.goal-weight-date,
+.time-until-goal-date {
+  padding: 0.2em;
+}
+
+.hitting-goal {
+  color: green;
+}
+
+.failing-goal {
+  color: red;
+}
+
+.body-stat-value {
+  font-weight: bold;
 }
