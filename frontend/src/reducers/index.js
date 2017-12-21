@@ -23,7 +23,7 @@ export const authErrors = state => fromAuth.errors(state.auth)
 
 //TODO: change serverMessageEntries to something better
 export const serverMessageEntries = state => fromEntries.serverMessageEntries(state.entries)
-export const calendarState = state => fromCalendar.calendarState(state.calendar)
+// export const calendarState = state => fromCalendar.calendarState(state.calendar)
 
 export const targetDailyCalorieChange = state => fromBodyStats.targetDailyCalorieChange(state)
 export const currentWeight = state => fromBodyStats.currentWeight(state)

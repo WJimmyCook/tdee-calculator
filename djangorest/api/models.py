@@ -15,7 +15,32 @@ class Entry(models.Model):
 	def __str__(self):
 		return "{}".format(self.date)
 
+class Profile(models.Model):
+	user = models.OneToOneField(
+		settings.AUTH_USER_MODEL,
+		related_name="profile",
+		on_delete=models.CASCADE
+		)
+
+	startingWeight = models.FloatField()
+	goalWeight = models.FloatField()
+	weeklyWeightChange = models.FloatField()
+
+	@property
+	def username(self):
+		return self.user.username
+
+	def __str__(self):
+		return self.user.username
+
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_auth_token(sender, instance=None, created=False, **kwargs):
 	if created:
 		Token.objects.create(user=instance)
+
+@receiver(post_save, sender=settings.AUTH_USER_MODEL)
+def create_profile_for_new_user(sender, created, instance, **kwargs):
+	if created:
+		profile = Profile(user=instance)
+		profile.save()
+	

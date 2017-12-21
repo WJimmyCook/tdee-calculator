@@ -9,6 +9,7 @@ import { Provider } from 'react-redux';
 import App from './App';
 import { Route, Switch } from 'react-router';
 import Login from './containers/Login';
+import Register from './containers/Register'
 import PrivateRoute from './containers/PrivateRoute';
 import 'bootstrap/dist/css/bootstrap.css'
 
@@ -20,6 +21,7 @@ ReactDOM.render((
     <ConnectedRouter history={history}>
       <Switch>
         <Route exact path="/login/" component={Login} />
+        <Route exact path="/register/" component={Register} />
         <PrivateRoute path="/" component={App}/>
       </Switch>
     </ConnectedRouter>

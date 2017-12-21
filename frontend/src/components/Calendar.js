@@ -14,6 +14,7 @@ import { connect } from 'react-redux'
 import EntryForm from './EntryForm'
 import PostEntry from '../containers/Entry'
 import TextInput from './TextInput'
+import Header from './Header'
 
 const moment = extendMoment(Moment);
 

@@ -36,6 +36,13 @@ export default (state=initialState, action) => {
              action.payload.response ||
                 {'non_field_errors': action.payload.statusText},
       }
+    case auth.LOGOUT:
+      console.log("in da reducer")
+      return {
+        access: undefined,
+        refresh: undefined,
+        errors: {}
+      }
     default:
       return state
     }
