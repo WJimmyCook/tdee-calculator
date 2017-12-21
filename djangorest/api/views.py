@@ -33,6 +33,6 @@ class CreateProfileView(generics.ListCreateAPIView):
         serializer.save(user=self.request.user)
 
 class DetailsProfileView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Entry.objects.all()
+    queryset = Profile.objects.all()
     serializer_class = ProfileSerializer
     permission_classes = ()

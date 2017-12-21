@@ -30,13 +30,15 @@ export default (state=initialState, action) => {
     case bodyStats.UPDATE_GOAL_WEIGHT_CHANGE_PER_WEEK:
       return {...state, goalWeightChangePerWeek: action.goalWeightChangePerWeek}
       break;
+    case bodyStats.UPDATE_PROFILE_SUCCESS:
+      return [...state, action.payload]
+      break;
     default:
     return state
   }
 }
 
 export function targetDailyCalorieChange(state){
-  console.log("state body", state)
   if(state.bodyStats.goalWeightChangePerWeek){
     return parseFloat((state.bodyStats.goalWeightChangePerWeek * 3500 / 7).toFixed(2))
   }
@@ -54,7 +56,6 @@ export function currentWeight(state){
 }
 
 export function weightChange(state){
-  console.log("weight chagne", state)
   if(state.bodyStats.startingWeight && currentWeight(state)){
     return parseFloat(Math.abs(state.bodyStats.startingWeight - currentWeight(state)).toFixed(2))
   }
@@ -65,16 +66,12 @@ export function currentTDEE(state){
     const avgCalories = state.entries.reduce((sum, entry) => {
       return sum + entry.weight
     }, 0) / state.entries.length
-    console.log("avgCaloreies", avgCalories)
 
     const delta = currentWeight(state) - state.bodyStats.startingWeight
-    console.log("delta", delta)
 
     const entryCount = state.entries.length
-    console.log("entryCount", entryCount)
 
     const currentTDEEValue = avgCalories + (-delta * 3500)/entryCount
-    console.log("currentTDEE", currentTDEEValue)
 
     return parseFloat(currentTDEEValue.toFixed(2))
   }
@@ -90,8 +87,6 @@ export function goalWeightDate(state){
 }
 
 export function caloricNeed(state){
-  console.log("current tdeee", currentTDEE(state))
-  console.log("daily change", targetDailyCalorieChange(state))
   if(state.bodyStats.goalWeight > currentWeight(state)){
     return parseFloat((currentTDEE(state) + targetDailyCalorieChange(state)).toFixed(2))
   } else {

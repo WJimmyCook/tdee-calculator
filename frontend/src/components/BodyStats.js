@@ -1,8 +1,8 @@
 import React from 'react'
 import { targetDailyCalorieChange, currentWeight, weightChange,
-  currentTDEE, goalWeightDate, timeUntilGoal, caloricNeed } from '../reducers'
+  currentTDEE, goalWeightDate, timeUntilGoal, caloricNeed, userId } from '../reducers'
 import TextInput from '../components/TextInput'
-import { updateInput } from '../actions/bodyStats'
+import { updateInput, updateProfile } from '../actions/bodyStats'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 import { Row, Col, Form, Container, Input, Label, FormGroup } from 'reactstrap'
@@ -18,7 +18,9 @@ class BodyStats extends React.Component {
   }
 
   onInputChange(event) {
-    this.props.updateInput(event)
+    console.log("propszzz", event.target.name)
+    this.props.updateProfile(this.props.userId, event)
+    // this.props.updateInput(event)
   }
 
   render() {
@@ -80,13 +82,15 @@ const mapStateToProps = (state) => {
     currentTDEE: currentTDEE(state),
     goalWeightDate: goalWeightDate(state),
     timeUntilGoal: timeUntilGoal(state),
-    caloricNeed: caloricNeed(state)
+    caloricNeed: caloricNeed(state),
+    userId: userId(state)
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateInput: bindActionCreators(updateInput, dispatch)
+    updateInput: bindActionCreators(updateInput, dispatch),
+    updateProfile: bindActionCreators(updateProfile, dispatch)
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(BodyStats);

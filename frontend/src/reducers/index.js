@@ -20,6 +20,7 @@ export const isAccessTokenExpired = state => fromAuth.isAccessTokenExpired(state
 export const refreshToken = state => fromAuth.refreshToken(state.auth)
 export const isRefreshTokenExpired = state => fromAuth.isRefreshTokenExpired(state.auth)
 export const authErrors = state => fromAuth.errors(state.auth)
+export const userId = state => fromAuth.userId(state.auth)
 
 //TODO: change serverMessageEntries to something better
 export const serverMessageEntries = state => fromEntries.serverMessageEntries(state.entries)

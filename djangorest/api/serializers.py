@@ -16,6 +16,8 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 		fields = ('url', 'username', 'email')
 
 class ProfileSerializer(serializers.ModelSerializer):
+	owner = serializers.ReadOnlyField(source='owner.username')
+
 	class Meta:
 		model = Profile
-		fields = ('startingWeight', 'goalWeight', 'weeklyWeightChange')
+		fields = ('startingWeight', 'goalWeight', 'weeklyWeightChange', 'owner')

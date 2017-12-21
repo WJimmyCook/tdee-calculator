@@ -16,7 +16,7 @@ class Entry(models.Model):
 		return "{}".format(self.date)
 
 class Profile(models.Model):
-	user = models.OneToOneField(
+	owner = models.OneToOneField(
 		settings.AUTH_USER_MODEL,
 		related_name="profile",
 		on_delete=models.CASCADE
@@ -39,7 +39,7 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 		Token.objects.create(user=instance)
 
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
-def create_profile_for_new_user(sender, created, instance, **kwargs):
+def create_profile_for_new_user(sender, instance, created, **kwargs):
 	if created:
 		profile = Profile(user=instance)
 		profile.save()
