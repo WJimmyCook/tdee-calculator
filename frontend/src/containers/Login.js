@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
 
 import LoginForm from '../components/LoginForm'
+import Calendar from '../components/Calendar'
 import {login} from  '../actions/auth'
 import {authErrors, isAuthenticated} from '../reducers'
 
@@ -14,6 +15,7 @@ const Login = (props) => {
   return (
      <div className="login-page">
        <LoginForm {...props}/>
+       <Calendar />
     </div>
   )
 }

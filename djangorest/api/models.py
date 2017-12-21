@@ -22,9 +22,9 @@ class Profile(models.Model):
 		on_delete=models.CASCADE
 		)
 
-	startingWeight = models.FloatField()
-	goalWeight = models.FloatField()
-	weeklyWeightChange = models.FloatField()
+	startingWeight = models.FloatField(default=None, blank=True, null=True)
+	goalWeight = models.FloatField(default=None, blank=True, null=True)
+	weeklyWeightChange = models.FloatField(default=None, blank=True, null=True)
 
 	@property
 	def username(self):
@@ -41,6 +41,6 @@ def create_auth_token(sender, instance=None, created=False, **kwargs):
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def create_profile_for_new_user(sender, instance, created, **kwargs):
 	if created:
-		profile = Profile(user=instance)
+		profile = Profile(owner=instance)
 		profile.save()
 	

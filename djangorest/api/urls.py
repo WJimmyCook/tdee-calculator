@@ -1,6 +1,6 @@
 from django.conf.urls import url, include
 # from django.views import generic
-from .views import CreateView, DetailsView, UserViewSet, CreateProfileView, DetailsProfileView
+from .views import CreateView, DetailsView, UserViewSet, UserCreate, CreateProfileView, DetailsProfileView
 # from rest_framework.urlpatterns import format_suffix_patterns
 # from rest_framework import status, serializers, views
 # from rest_framework.response import Response
@@ -35,7 +35,8 @@ urlpatterns = [
     url(r'^auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^auth/token/obtain/$', TokenObtainPairView.as_view()),
     url(r'^auth/token/refresh/$', TokenRefreshView.as_view()),
-    url(r'^users/$', user_list, name="user-list"),
+    url(r'^users/list/$', user_list, name="user-list"),
+    url(r'^users/$', UserCreate.as_view(), name="user-create"),
     url(r'^users/(?P<pk>[0-9]+)/$', user_detail, name="user-detail"),
     url(r'^entries/$', CreateView.as_view(), name="create"),
     url(r'^entries/(?P<pk>[0-9]+)/$', DetailsView.as_view(), name="details"),
