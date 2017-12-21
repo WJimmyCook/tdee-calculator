@@ -9,7 +9,6 @@ const initialState = {
 }
 
 export default (state = initialState, action) => {
-  console.log("in ad cal")
   switch (action.type) {
     case 'INCREMENT_MONTH':
       return {...state, startDate: moment(state.startDate).add(1, 'months').format('MM-DD-YYYY')}

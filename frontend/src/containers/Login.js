@@ -15,7 +15,6 @@ const Login = (props) => {
   return (
      <div className="login-page">
        <LoginForm {...props}/>
-       <Calendar />
     </div>
   )
 }

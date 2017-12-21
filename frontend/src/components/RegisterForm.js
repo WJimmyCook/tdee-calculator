@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
-import { Alert, Button, Jumbotron,  Form } from 'reactstrap';
+import { Alert, Button, Jumbotron,  Form } from 'reactstrap'
+import { Link } from 'react-router-dom'
 
 import TextInput from './TextInput'
 
@@ -42,6 +43,7 @@ export default class RegisterForm extends Component {
           <TextInput name="username" label="Username" error={errors.username} onChange={this.handleInputChange}/>
           <TextInput name="password" label="Password" error={errors.password} type="password" onChange={this.handleInputChange}/>
           <Button type="submit" color="primary" size="lg">Register</Button>
+          <Link to="/"><Button type="submit" color="primary" size="lg">Cancel</Button></Link>
         </Form>
       </Jumbotron>
     )

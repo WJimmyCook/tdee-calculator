@@ -4,13 +4,15 @@ import auth, * as fromAuth from './auth.js'
 import entries, * as fromEntries from './entries.js'
 import calendar, * as fromCalendar from './calendar.js'
 import bodyStats, * as fromBodyStats from './bodyStats.js'
+import register, * as fromRegister from './register.js'
 
 export default combineReducers({
   auth: auth,
   entries: entries,
   calendar: calendar,
   bodyStats: bodyStats,
-  router: routerReducer
+  router: routerReducer,
+  register: register
 })
 
 

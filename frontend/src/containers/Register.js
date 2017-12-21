@@ -3,11 +3,11 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
 
 import RegisterForm from '../components/RegisterForm'
-import {register} from  '../actions/auth'
+import {register} from  '../actions/register'
 import {authErrors, isAuthenticated} from '../reducers'
 
 const Register = (props) => {
-  if(props.isAuthenticated) {
+  if(props.isRegistered || props.isAuthenticated) {
      return  <Redirect to='/' />
   }
 
@@ -20,7 +20,8 @@ const Register = (props) => {
 
 const mapStateToProps = (state) => ({
   errors: authErrors(state),
-  isAuthenticated: isAuthenticated(state)
+  isAuthenticated: isAuthenticated(state),
+  isRegistered: state.register.isRegistered
 })
 
 const mapDispatchToProps = (dispatch) => ({
