@@ -65,7 +65,7 @@ class Day extends React.Component {
     const errors = this.props.errors || {}
     return (
       <Col className="day">
-        <Button outline key={date.format('YYYYMMDD')} onClick={this.onDayButtonClick} block>
+        <Button outline className="calendarButton" key={date.format('YYYYMMDD')} onClick={this.onDayButtonClick} block>
           <div>{date.format("D")}</div>
           <div>{this.props.weight}</div>
           <div>{this.props.calories}</div>

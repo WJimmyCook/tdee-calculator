@@ -5,7 +5,7 @@ import TextInput from '../components/TextInput'
 import { updateInput, updateProfile, getProfileStats } from '../actions/bodyStats'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { Row, Col, Form, Container, Input, Label, FormGroup } from 'reactstrap'
+import { Row, Col, Form, Container, Input, Label, FormGroup, Progress } from 'reactstrap'
 
 class BodyStats extends React.Component {
   constructor(props){
@@ -35,38 +35,39 @@ class BodyStats extends React.Component {
     const hittingGoal = loseWeight && this.props.currentWeight < this.props.startingWeight ||
     !loseWeight && this.props.currentWeight > this.props.startingWeight
     return (
-      <Container className="body-stats">
+      <Container className="bodyStats">
+        <div className="time-until-goal-date text-center"><span className="body-stat-value">{this.props.timeUntilGoal}</span> weeks until you reach your goal weight</div>
+          <Progress multi>
+            <Progress bar value={this.props.startingWeight} max={this.props.goalWeight}>starting weight - {this.props.startingWeight}</Progress>
+            <Progress bar color="success" value={this.props.currentWeight - this.props.startingWeight} max={this.props.goalWeight}></Progress>
+          </Progress>
         <Row>
-          <Col sm="5">
-            <h2>TDEE Calculator</h2>
-            <Form>
-              <FormGroup row>
+          <Col sm="5" className="bodyStatsInput">
+              <Row>
                 <Label for="startingWeightInput" sm={6}>Starting Weight</Label>
                 <Col sm={6}>
-                  <Input id="startingWeightInput" name="startingWeight" value={this.props.startingWeight} onChange={this.onInputChange} />
+                  <Input id="startingWeightInput" className="bodyStatsInputValue" name="startingWeight" value={this.props.startingWeight} onChange={this.onInputChange} />
                 </Col>
-              </FormGroup>
-              <FormGroup row>
+              </Row>
+              <Row>
                 <Label for="goalWeightInput" sm={6}>Goal Weight</Label>
                 <Col sm={6}>
                   <Input id="goalWeightInput" name="goalWeight" value={this.props.goalWeight} onChange={this.onInputChange} />
                 </Col>
-              </FormGroup>
-              <FormGroup row>
+              </Row>
+              <Row>
                 <Label for="goalWeightChangePerWeekInput" sm={6}>{weightChangeLabel}</Label>
                 <Col sm={6}>
                   <Input id="goalWeightChangePerWeekInput" name="goalWeightChangePerWeek" value={this.props.goalWeightChangePerWeek} onChange={this.onInputChange} />
                 </Col>
-              </FormGroup>
-            </Form>
+              </Row>
           </Col>
           <Col sm="7">
-            <div className="target-daily-calorie-change">{surplusOrDeficitLabel}: <span className="body-stat-value">{this.props.targetDailyCalorieChange}</span></div>
             <div className="current-weight">Current Weight: <span className={"body-stat-value" + ( hittingGoal ? " hitting-goal" : " failing-goal")}>{this.props.currentWeight}</span></div>
             <div className="weight-change">{amountGainedOrLost}: <span className={"body-stat-value" + ( hittingGoal ? " hitting-goal" : " failing-goal")}>{this.props.weightChange}</span></div>
+            <div className="target-daily-calorie-change">{surplusOrDeficitLabel}: <span className="body-stat-value">{this.props.targetDailyCalorieChange}</span></div>
             <div className="current-tdee">Current TDEE: <span className="body-stat-value">{this.props.currentTDEE}</span></div>
             <div className="goal-weight-date">To reach your goal weight by <span className="body-stat-value">{this.props.goalWeightDate}</span> you will need to eat <span className="body-stat-value">{this.props.caloricNeed}</span></div>
-            <div className="time-until-goal-date"><span className="body-stat-value">{this.props.timeUntilGoal}</span> weeks until you reach your goal weight</div>
           </Col>
         </Row>
       </Container>

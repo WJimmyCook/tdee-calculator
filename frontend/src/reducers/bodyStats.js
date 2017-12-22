@@ -15,7 +15,7 @@ const initialState = {
   currentTDEE: undefined,
   goalWeightAchievementDate: undefined,
   dailyCaloriesForGoal: undefined,
-  weeksUntilGoalAchieved: undefined,
+  weeksUntilGoalAchieved: undefined
 }
 
 export default (state=initialState, action) => {

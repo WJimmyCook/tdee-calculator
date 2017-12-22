@@ -6,6 +6,14 @@ html {
   font-family: 'Raleway', sans-serif;
 }
 
+.header {
+  background-color: aliceblue;
+}
+
+.body {
+  background-color: #EFEFEF;
+}
+
 .calendar {
   clear: both;
 }
@@ -36,15 +44,17 @@ html {
   text-align: center;
   font-weight: 900;
   float: left;
-  width: calc(100% / 7 * 5);
+  width: 70%;
   margin: 0;
 }
 
 .goPreviousMonth,
 .goNextMonth {
   text-align: center;
-  float: left;
-  width: calc(100% / 7);
+  /* float: left; */
+  width: 15%;
+  cursor: pointer;
+  align-items: center;
 }
 
 .target-daily-calorie-change,
@@ -53,7 +63,7 @@ html {
 .current-tdee,
 .goal-weight-date,
 .time-until-goal-date {
-  padding: 0.2em;
+  padding: 0.1em;
 }
 
 .hitting-goal {
@@ -66,4 +76,25 @@ html {
 
 .body-stat-value {
   font-weight: bold;
+}
+
+.login, .logout {
+  float: right;
+}
+
+.bodyStats {
+  padding: .5em;
+}
+
+.bodyStatsInput {
+  padding: .5em;
+}
+
+.calendarButton {
+  border-radius: 0;
+}
+
+#startingWeightInput, #goalWeightInput, #goalWeightChangePerWeekInput {
+  border-radius: 0;
+  padding: .25em .25em;
 }

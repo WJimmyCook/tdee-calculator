@@ -110,14 +110,15 @@ class Calendar extends React.Component {
     return (
       <Container className="calendar">
         <Row>
-          <div className="goPreviousMonth">
-          <FontAwesomeIcon icon={faChevronCircleLeft} size="lg" onClick={this.props.onMonthDecrement} />
-          </div>
-          <p className="monthHeader">
-          {moment(this.props.startDate).format('MMMM YYYY')}</p>
-          <div className="goNextMonth">
+          <Col className="goPreviousMonth">
+          <FontAwesomeIcon className="align-middle" icon={faChevronCircleLeft} size="lg" onClick={this.props.onMonthDecrement} />
+          </Col>
+          <Col className="monthHeader">
+          {moment(this.props.startDate).format('MMMM YYYY')}
+          </Col>
+          <Col className="goNextMonth">
           <FontAwesomeIcon icon={faChevronCircleRight} size="lg" onClick={this.props.onMonthIncrement} />
-          </div>
+          </Col>
         </Row>
         <div className="days">
           {this.dayHeaders()}
