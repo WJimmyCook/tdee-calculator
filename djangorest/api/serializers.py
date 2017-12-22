@@ -31,7 +31,7 @@ class UserSerializer(serializers.ModelSerializer):
 
 class ProfileSerializer(serializers.ModelSerializer):
 	owner = serializers.ReadOnlyField(source='owner.username')
-
+	ownerId = serializers.ReadOnlyField(source='owner.id')
 	class Meta:
 		model = Profile
-		fields = ('startingWeight', 'goalWeight', 'weeklyWeightChange', 'owner')
+		fields = ('id','startingWeight', 'goalWeight', 'weeklyWeightChange', 'owner', 'ownerId')

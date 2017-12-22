@@ -41,9 +41,7 @@ export default class LoginForm extends Component {
           <TextInput name="username" label="Username" error={errors.username} getRef={input => this.primaryInput = input} onChange={this.handleInputChange}/>
           <TextInput name="password" label="Password" error={errors.password} type="password" onChange={this.handleInputChange}/>
           <Button type="submit" color="primary" size="lg">Log In</Button>
-
           <Link to="/register"><Button type="submit" color="primary" size="lg">Register</Button></Link>
-
         </Form>
       </Jumbotron>
     )

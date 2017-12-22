@@ -33,6 +33,13 @@ export default (state=initialState, action) => {
     case bodyStats.UPDATE_PROFILE_SUCCESS:
       return [...state, action.payload]
       break;
+    case bodyStats.GET_PROFILE_SUCCESS:
+      return {...state,
+        startingWeight: action.payload.startingWeight,
+        goalWeight: action.payload.goalWeight,
+        goalWeightChangePerWeek: action.payload.weeklyWeightChange
+      }
+      break;
     default:
     return state
   }

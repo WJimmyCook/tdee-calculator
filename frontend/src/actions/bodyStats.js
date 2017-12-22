@@ -9,6 +9,10 @@ export const UPDATE_PROFILE_REQUEST = '@@bodystats/UPDATE_PROFILE_REQUEST';
 export const UPDATE_PROFILE_SUCCESS = '@@bodystats/UPDATE_PROFILE_SUCCESS';
 export const UPDATE_PROFILE_FAILURE = '@@bodystats/UPDATE_PROFILE_FAILURE';
 
+export const GET_PROFILE_REQUEST = '@@bodystats/GET_PROFILE_REQUEST';
+export const GET_PROFILE_SUCCESS = '@@bodystats/GET_PROFILE_SUCCESS';
+export const GET_PROFILE_FAILURE = '@@bodystats/GET_PROFILE_FAILURE';
+
 export function updateInput(event) {
   if(event.target.name === "startingWeight"){
     return {
@@ -38,6 +42,17 @@ export const updateProfile = (id, event) => ({
     headers: withAuth({'Content-Type': 'application/json'}),
     types: [
       UPDATE_PROFILE_REQUEST, UPDATE_PROFILE_SUCCESS, UPDATE_PROFILE_FAILURE
+    ]
+  }
+})
+
+export const getProfileStats = (id) => ({
+  [RSAA]: {
+    endpoint: '/profile/'+id+'/',
+    method: 'GET',
+    headers: withAuth({'Content-Type': 'application/json'}),
+    types: [
+      GET_PROFILE_REQUEST, GET_PROFILE_SUCCESS, GET_PROFILE_FAILURE
     ]
   }
 })

@@ -29,6 +29,9 @@ class Profile(models.Model):
 	@property
 	def username(self):
 		return self.user.username
+	@property
+	def ownerId(self):
+		return self.user.id
 
 	def __str__(self):
 		return self.user.username

@@ -41,7 +41,7 @@ urlpatterns = [
     url(r'^entries/$', CreateView.as_view(), name="create"),
     url(r'^entries/(?P<pk>[0-9]+)/$', DetailsView.as_view(), name="details"),
     url(r'^profile/$', CreateProfileView.as_view(), name="create-profile"),
-    url(r'^profile/(?P<pk>[0-9]+)/$', DetailsProfileView.as_view(), name="details-profile")
+    url(r'^profile/(?P<owner_id>[0-9]+)/$', DetailsProfileView.as_view(), name="details-profile")
 ]
 
 # urlpatterns = format_suffix_patterns(urlpatterns)
